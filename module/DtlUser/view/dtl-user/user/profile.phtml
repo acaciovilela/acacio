@@ -1,0 +1,25 @@
+<?php Zend\Debug\Debug::dump($this->identity()); ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><?php echo $this->translate('Perfil'); ?></div>
+                <div class="panel-body">
+                    <div class="profile-image">
+                        <?php echo $this->gravatar($this->identity()->getEmail(), array('img_size' => 220))->getImgTag(); ?>
+                    </div>
+                    <h3>
+                        <?php // echo $this->identity()->getPerson()->getName(); ?>
+                    </h3>
+                    <p>
+                        <i class="glyphicon glyphicon-map-marker"></i> Iraí de Minas-MG, Brasil
+                    </p>
+                </div>
+            </div> 
+        </div>
+        <div class="col-md-9">
+            
+        </div>
+    </div>
+</div>

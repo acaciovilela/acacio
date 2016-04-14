@@ -1,0 +1,55 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url('dtluser/login'));
+$form->setAttribute('class', 'form-horizontal');
+$login = $form->get('login');
+$login->get('username')
+        ->setAttribute('id', 'username')
+        ->setAttribute('class', 'input-large span10')
+        ->setAttribute('name', 'username');
+$login->get('password')
+        ->setAttribute('id', 'password')
+        ->setAttribute('class', 'input-large span10')
+        ->setAttribute('name', 'password');
+?>
+
+
+<?php echo $this->form()->openTag($form) ?>
+
+<fieldset>
+    <?php echo $this->formElementErrors($login->get('username')) ?>
+
+    <div class="input-prepend" title="Username">
+        <span class="add-on"><i class="halflings-icon user"></i></span>
+        <?php echo $this->formInput($login->get('username')) ?>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="input-prepend" title="Password">
+        <span class="add-on"><i class="halflings-icon lock"></i></span>
+        <?php echo $this->formInput($login->get('password')) ?>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
+
+    <div class="button-login">
+        <?php echo $this->formSubmit($form->get('submit')) ?>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <?php if ($this->redirect): ?>
+        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+    <?php endif ?>
+</fieldset>
+
+<?php echo $this->form()->closeTag() ?>
+
+
+<?php
+echo $this->flashMessenger()->render('error', array('alert', 'alert-danger'));
+?>
