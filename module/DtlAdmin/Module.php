@@ -63,21 +63,14 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
         if (false === $config['dtladmin']['use_admin_layout']) {
             return;
         }
-
-        if ($app->getRequest()->isXmlHttpRequest()) {
-            $view = $app->getMvcEvent()->getViewModel();
-            $controller = $e->getTarget();
-            $controller->layout('layout/blank');
-            $view->setTerminal(true);
-        } else {
-            $match = $e->getRouteMatch();
-            $controller = $e->getTarget();
-            if (!$match instanceof RouteMatch || 0 !== strpos($match->getMatchedRouteName(), 'dtladmin') || $controller->getEvent()->getResult()->terminate()) {
-                return;
-            }
-            $layout = $config['dtladmin']['admin_layout_template'];
-            $controller->layout($layout);
+        
+        $match = $e->getRouteMatch();
+        $controller = $e->getTarget();
+        if (!$match instanceof RouteMatch || 0 !== strpos($match->getMatchedRouteName(), 'dtladmin') || $controller->getEvent()->getResult()->terminate()) {
+            return;
         }
+        $layout = $config['dtladmin']['admin_layout_template'];
+        $controller->layout($layout);
     }
 
 }

@@ -7,6 +7,7 @@
  */
 return array(
     'modules' => array(
+//        'ZF2NetteDebug',
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
@@ -17,6 +18,7 @@ return array(
         'DtlOccupation',
         'DtlOffice',
         'DtlUser',
+        'DtlTwitter',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

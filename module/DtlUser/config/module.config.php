@@ -7,7 +7,7 @@ return array(
         'factories' => array(
             'DtlUser\Controller\User' => function($sm) {
                 $sl = $sm->getServiceLocator();
-                $controller = new Controller\UserController();
+                $controller = new Controller\UserController($sl);
                 $controller->setAuthService($sl->get('dtluser_auth_service'));
                 $controller->setAuthAdapter($sl->get('dtluser_auth_adapter'));
                 $controller->setLoginForm($sl->get('dtluser_login_form'));

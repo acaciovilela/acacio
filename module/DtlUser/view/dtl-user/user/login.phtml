@@ -2,54 +2,55 @@
 $form = $this->form;
 $form->prepare();
 $form->setAttribute('action', $this->url('dtluser/login'));
-$form->setAttribute('class', 'form-horizontal');
 $login = $form->get('login');
 $login->get('username')
         ->setAttribute('id', 'username')
-        ->setAttribute('class', 'input-large span10')
+        ->setAttribute('class', 'form-control')
         ->setAttribute('name', 'username');
 $login->get('password')
         ->setAttribute('id', 'password')
-        ->setAttribute('class', 'input-large span10')
+        ->setAttribute('class', 'form-control')
         ->setAttribute('name', 'password');
 ?>
 
+<div class="row">
+    <div class="col-lg-3 col-lg-offset-4">
+        <div class="user-login-box">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <?php echo $this->translate('Login de Usuário'); ?>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <?php echo $this->form()->openTag($form) ?>
+                    <?php echo $this->formElementErrors($login->get('username')) ?>
+                    <div class="form-group">
+                        <div class="input-group" title="Username">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <?php echo $this->formInput($login->get('username')) ?>
+                        </div>
+                    </div>
 
-<?php echo $this->form()->openTag($form) ?>
+                    <div class="form-group">
+                        <div class="input-group" title="Password">
+                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                            <?php echo $this->formInput($login->get('password')) ?>
+                        </div>
+                    </div>
 
-<fieldset>
-    <?php echo $this->formElementErrors($login->get('username')) ?>
+                    <label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
 
-    <div class="input-prepend" title="Username">
-        <span class="add-on"><i class="halflings-icon user"></i></span>
-        <?php echo $this->formInput($login->get('username')) ?>
+                    <div class="button-login">
+                        <?php echo $this->formSubmit($form->get('submit')) ?>
+                    </div>
+
+                    <?php if ($this->redirect): ?>
+                        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
+                    <?php endif ?>
+                    <?php echo $this->form()->closeTag() ?>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="clearfix"></div>
-
-    <div class="input-prepend" title="Password">
-        <span class="add-on"><i class="halflings-icon lock"></i></span>
-        <?php echo $this->formInput($login->get('password')) ?>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <label class="remember" for="remember"><input type="checkbox" id="remember" />Remember me</label>
-
-    <div class="button-login">
-        <?php echo $this->formSubmit($form->get('submit')) ?>
-    </div>
-
-    <div class="clearfix"></div>
-
-    <?php if ($this->redirect): ?>
-        <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
-    <?php endif ?>
-</fieldset>
-
-<?php echo $this->form()->closeTag() ?>
-
-
-<?php
-echo $this->flashMessenger()->render('error', array('alert', 'alert-danger'));
-?>
+</div>

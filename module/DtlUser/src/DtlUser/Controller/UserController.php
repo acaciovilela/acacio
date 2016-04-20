@@ -4,6 +4,7 @@ namespace DtlUser\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class UserController extends AbstractActionController {
 
@@ -14,6 +15,7 @@ class UserController extends AbstractActionController {
     protected $loginForm;
     protected $userService;
     protected $entityManager;
+    protected $serviceLocator;
 
     public function indexAction() {
         if (!$this->identity()) {
@@ -77,9 +79,16 @@ class UserController extends AbstractActionController {
     }
 
     public function profileAction() {
+
+        $twitter = $this->getServiceLocator()->get('dtltwitter_service');
+        $response = $twitter->accountVerifyCredentials();
+        if ($response->isSuccess()) {
+            $twUser = $response->toValue();
+        }
         $auth = $this->getAuthService();
         return new ViewModel(array(
             'identity' => $auth->getIdentity(),
+            'twitter' => ($twUser) ? $twUser : null,
         ));
     }
 
@@ -88,7 +97,7 @@ class UserController extends AbstractActionController {
         if ($this->authService->hasIdentity()) {
             return $this->redirect()->toRoute('dtluser/profile');
         }
-        
+
         $form = $this->getUserForm();
         $user = new \DtlUser\Entity\User();
         $form->bind($user);
@@ -162,13 +171,22 @@ class UserController extends AbstractActionController {
         $this->userService = $userService;
         return $this;
     }
-    
+
     function getEntityManager() {
         return $this->entityManager;
     }
 
     function setEntityManager($entityManager) {
         $this->entityManager = $entityManager;
+        return $this;
+    }
+
+    function getServiceLocator() {
+        return $this->serviceLocator;
+    }
+
+    function setServiceLocator(ServiceLocatorInterface $serviceLocator) {
+        $this->serviceLocator = $serviceLocator;
         return $this;
     }
 
