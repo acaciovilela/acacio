@@ -36,6 +36,7 @@ return array(
             'dtluser_service' => function($sm) {
                 $service = new Service\User();
                 $service->setAuthService($sm->get('dtluser_auth_service'));
+                $service->setAuthAdapter($sm->get('dtluser_auth_adapter'));
                 $service->setEntityManager($sm->get('Doctrine\ORM\EntityManager'));
                 return $service;
             }

@@ -15,6 +15,7 @@
         "doctrine/doctrine-orm-module": "0.*",
         "facebook/php-sdk-v4": "~5.0",
         "google/apiclient": "1.*",
-        "webino/zf2nette-debug": "1.*"
+        "webino/zf2nette-debug": "1.*",
+        "hybridauth/hybridauth": "3.0.0.*@dev"
     }
 }

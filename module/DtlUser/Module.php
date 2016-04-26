@@ -27,20 +27,12 @@ class Module {
     }
 
     public function selectLayout(MvcEvent $e) {
-        $match = $e->getRouteMatch()->getMatchedRouteName();
-        if ($match === 'dtluser/login') {
+        $match = $e->getRouteMatch()->getParams();
+        if (($match['controller'] === 'DtlUser\Controller\User') && ($match['action'] === 'login')) {
             $controller = $e->getTarget();
             $controller->layout('layout/login');
             return;
-        } elseif ($match === 'dtluser/profile') {
-            $controller = $e->getTarget();
-            $controller->layout('layout/admin');
-            return;
-        } elseif ($match === 'dtluser/logout') {
-            $controller = $e->getTarget();
-            $controller->layout('layout/admin');
-            return;
-        } elseif ($match === 'dtluser/register') {
+        } elseif ($match['controller'] === 'DtlUser\Controller\User') {
             $controller = $e->getTarget();
             $controller->layout('layout/admin');
             return;

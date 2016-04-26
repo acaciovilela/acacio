@@ -26,7 +26,7 @@ class Login extends Form {
             'name' => 'submit',
             'attributes' => array(
                 'value' => 'Entrar',
-                'class' => 'btn btn-primary'
+                'class' => 'btn btn-primary btn-block'
             )
         ));
     }

@@ -28,7 +28,7 @@ class UserController extends AbstractActionController {
 
     public function loginAction() {
         if ($this->identity()) {
-            return $this->redirect()->toRoute('dtluser');
+            return $this->redirect()->toRoute('dtluser/profile');
         }
 
         $form = $this->getLoginForm();
@@ -39,7 +39,7 @@ class UserController extends AbstractActionController {
             ));
         }
 
-        $data['login'] = $this->request->getPost();
+        $data = $this->request->getPost();
 
         $form->setData($data);
 
@@ -47,23 +47,22 @@ class UserController extends AbstractActionController {
             $this->flashMessenger()->setNamespace('dtluser-login-form')->addMessage($this->invalidData);
             return $this->redirect()->toRoute('dtluser/login');
         }
+        
 
         return $this->forward()->dispatch('DtlUser\Controller\User', array('action' => 'authenticate'));
     }
 
     public function authenticateAction() {
         if ($this->identity()) {
-            return $this->redirect()->toRoute('dtluser/login');
+            return $this->redirect()->toRoute('dtluser/profile');
         }
 
         $post = $this->request->getPost();
-
-        $authService = $this->getAuthService();
-        $authAdapter = $this->getAuthAdapter();
-        $authAdapter->setIdentity($post->username);
-        $authAdapter->setCredential($post->password);
-        $authResult = $authService->authenticate($authAdapter);
-
+        
+        $userService = $this->getUserService();
+        // \Zend\Debug\Debug::dump($auth->hasIdentity());exit;
+        $authResult = $userService->login($post);
+        
         if (!$authResult->isValid()) {
             $this->flashMessenger()->addMessage($this->invalidData);
             return $this->redirect()->toRoute('dtluser/login');

@@ -1,4 +1,4 @@
-// Register Section
+/* USER REGISTER */
 .user-register {
     margin: auto;
     position: absolute;
@@ -12,13 +12,18 @@
     padding: 40px;
 }
 
-// Profile Section
+/* PROFILE */
 .profile-image {
     margin: auto;
     width: 220px;
 }
 
-//User login
+/* USER LOGIN */
 .user-login-box {
-    padding-top: 20px;
+    margin-top: 100px;
+}
+
+.user-login-remember {
+    color: #999;
+    font-weight: normal;
 }

@@ -19,9 +19,10 @@ class Login extends ZendFielset implements InputFilterProviderInterface {
             'attributes' => array(
                 'placeholder' => 'Usuário',
                 'class' => 'form-control',
+                'id' => 'username'
             ),
             'options' => array(
-                'label' => 'Usuário'
+                'label' => 'Usuário',
             )
         ));
 
@@ -32,9 +33,10 @@ class Login extends ZendFielset implements InputFilterProviderInterface {
                 'placeholder' => 'Senha',
                 'class' => 'form-control',
                 'autocomplete' => 'off',
+                'id' => 'password'
             ),
             'options' => array(
-                'label' => 'Senha'
+                'label' => 'Senha',
             )
         ));
     }
